@@ -1,7 +1,7 @@
 const botoes = document.querySelectorAll(".botao");
 const abas = document.querySelectorAll(".aba-conteudo");
 
-// Alternar abas
+// Alterna entre as abas
 botoes.forEach((botao, indice) => {
   botao.addEventListener("click", () => {
     botoes.forEach(b => b.classList.remove("ativo"));
@@ -12,12 +12,12 @@ botoes.forEach((botao, indice) => {
   });
 });
 
-// Datas dos objetivos (Ajustadas para datas futuras)
+// Datas finais dos cronômetros
 const tempos = [
-  new Date("2026-12-19T00:00:00"),
-  new Date("2027-08-05T00:00:00"),
-  new Date("2027-12-09T00:00:00"),
-  new Date("2028-07-25T00:00:00")
+  new Date("2026-10-05T00:00:00"),
+  new Date("2026-08-05T00:00:00"),
+  new Date("2026-12-09T00:00:00"),
+  new Date("2026-07-25T00:00:00")
 ];
 
 function atualizarContador(indice, dataFinal) {
@@ -33,9 +33,21 @@ function atualizarContador(indice, dataFinal) {
   }
 
   const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
-  const horas = Math.floor((diferenca % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
-  const segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
+
+  const horas = Math.floor(
+    (diferenca % (1000 * 60 * 60 * 24)) /
+    (1000 * 60 * 60)
+  );
+
+  const minutos = Math.floor(
+    (diferenca % (1000 * 60 * 60)) /
+    (1000 * 60)
+  );
+
+  const segundos = Math.floor(
+    (diferenca % (1000 * 60)) /
+    1000
+  );
 
   document.getElementById(`dias${indice}`).textContent = dias;
   document.getElementById(`horas${indice}`).textContent = horas;
@@ -49,6 +61,5 @@ function atualizarCronometros() {
   });
 }
 
-// Inicializa e roda a cada 1 segundo
 atualizarCronometros();
 setInterval(atualizarCronometros, 1000);
